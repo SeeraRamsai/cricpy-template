@@ -1,0 +1,535 @@
+---
+title: "Analyzing batsmen and bowlers with cricpy template"
+author: "Tinniam V Ganesh"
+date: "Dec 16, 2018"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+#Introduction
+This post shows how you can analyze batsmen and bowlers of Test, ODI and T20s using cricpy templates, using data from ESPN Cricinfo.
+
+#The **cricpy** package
+
+The data for a particular player can be obtained with the getPlayerData() function. To do you will need to go to [ESPN CricInfo Player](http://www.espncricinfo.com/ci/content/player/index.html) and type in the name of the player for e.g Rahul Dravid, Virat Kohli, Alastair Cook etc. This will bring up a page which have the profile number for the player e.g. for Rahul Dravid this would be http://www.espncricinfo.com/india/content/player/28114.html. Hence, Dravid's profile is 28114. This can be used to get the data for Rahul Dravid as shown below
+
+- For Test players use [batting][http://stats.espncricinfo.com/ci/content/records/223646.html] and [bowling](http://stats.espncricinfo.com/ci/content/records/93276.html).
+- For ODI use [batting](http://stats.espncricinfo.com/ci/content/records/83548.html) and [bowling](http://stats.espncricinfo.com/ci/content/records/283193.html)
+- For T20 use [T20 Batting](http://stats.espncricinfo.com/wi/content/records/283194.html) [T20 Bowling](http://stats.espncricinfo.com/wi/content/records/283194.html)
+
+and select the player you want 
+Please mindful of the [ESPN Cricinfo Terms of Use](http://www.espncricinfo.com/ci/content/site/company/terms_use.html) 
+
+My posts on Cripy were
+
+1. [Introducing cricpy:A python package to analyze performances of cricketers](https://gigadom.in/2018/10/28/introducing-cricpya-python-package-to-analyze-performances-of-cricketrs/)
+2. [Cricpy takes a swing at the ODIs](https://gigadom.in/2018/11/11/cricpy-takes-a-swing-at-the-odis/)
+3. [Cricpy takes guard for the Twenty20s](https://gigadom.in/2018/12/08/cricpy-takes-guard-for-the-twenty20s/)
+
+You can clone/download this cricpy template for your own analysis of players. This can be done using RStudio or IPython notebooks
+
+
+The cricpy package is now available with  **pip install cricpy!!!** 
+
+##1 Importing cricpy - Python
+```{python}
+# Install the package
+# Do a pip install cricpy
+# Import cricpy
+import cricpy.analytics as ca 
+```
+
+
+##2. Invoking functions with Python package **cricpy**
+```{python}
+import cricpy.analytics as ca 
+#ca.batsman4s("aplayer.csv","A Player")
+```
+
+
+
+#3. Getting help from cricpy - Python
+```{python}
+#help(ca.getPlayerData)
+```
+
+
+The details below will introduce the different functions that are available 
+in cricpy.
+
+##4. Get the player data for a player using the function getPlayerData()
+**Important Note**
+This needs to be done only once for a player. This function stores the player's data in the specified CSV file (for e.g. dravid.csv as above) which can then be reused for all other functions). Once we have the data for the players many analyses can be done. This post will use the stored CSV file obtained with a prior getPlayerData for all subsequent analyses
+
+##4a. For Test players 
+```{python}
+import cricpy.analytics as ca
+#player1 =ca.getPlayerData(profileNo1,dir="..",file="player1.csv",type="batting",homeOrAway=[1,2], result=[1,2,4])
+#player1 =ca.getPlayerData(profileNo2,dir="..",file="player2.csv",type="batting",homeOrAway=[1,2], result=[1,2,4])
+
+```
+
+##4b. For ODI players
+```{python}
+import cricpy.analytics as ca
+#player1 =ca.getPlayerDataOD(profileNo1,dir="..",file="player1.csv",type="batting")
+#player1 =ca.getPlayerDataOD(profileNo2,dir="..",file="player2.csv",type="batting"")
+```
+
+
+##4c For T20 players
+```{python}
+import cricpy.analytics as ca
+#player1 =ca.getPlayerDataTT(profileNo1,dir="..",file="player1.csv",type="batting")
+#player1 =ca.getPlayerDataTT(profileNo2,dir="..",file="player2.csv",type="batting"")
+```
+
+
+##5 A Player's performance -  Basic Analyses
+The 3 plots below provide the following for Rahul Dravid
+
+1. Frequency percentage of runs in each run range over the whole career
+2. Mean Strike Rate for runs scored in the given range
+3. A histogram of runs frequency percentages in runs ranges
+
+```{python basic,cache=TRUE}
+
+import cricpy.analytics as ca
+import matplotlib.pyplot as plt
+
+
+#ca.batsmanRunsFreqPerf("aplayer.csv","A Player")
+#ca.batsmanMeanStrikeRate("aplayer.csv","A Player")
+#ca.batsmanRunsRanges("aplayer.csv","A Player") 
+
+```
+
+##6. More analyses
+This gives details on the batsmen's 4s, 6s and dismissals
+```{python dravid-4s6sout,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsman4s("aplayer.csv","A Player")
+#ca.batsman6s("aplayer.csv","A Player") 
+#ca.batsmanDismissals("aplayer.csv","A Player")
+
+# The below function is for ODI and T20 only
+#ca.batsmanScoringRateODTT("./kohli.csv","Virat Kohli")  
+
+```
+
+##7.  3D scatter plot and prediction plane
+The plots below show the 3D scatter plot of Runs versus Balls Faced and Minutes at crease. A linear regression plane  is then fitted between Runs and Balls Faced + Minutes at crease
+
+```{python dravid-3d,cache=TRUE}
+import cricpy.analytics as ca
+#ca.battingPerf3d("aplayer.csv","A Player")
+
+```
+
+##8. Average runs at different venues
+The plot below gives the average runs scored  at different grounds. The plot also the number of innings at each ground as a label at x-axis. 
+
+```{python dravid-runsgrd,,cache=TRUE}
+import cricpy.analytics as ca
+#ca.batsmanAvgRunsGround("aplayer.csv","A Player")
+```
+
+##9. Average runs against different opposing teams
+This plot computes the average runs scored  against different countries. 
+
+```{python dravid-avgopn,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanAvgRunsOpposition("aplayer.csv","A Player")
+```
+
+
+##10. Highest Runs Likelihood
+The plot below shows the Runs Likelihood for a batsman. 
+```{python dravid-kmeans,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanRunsLikelihood("aplayer.csv","A Player")
+```
+
+#11. A look at the Top 4 batsman 
+Choose any number of  players
+
+1.Player1 
+2.Player2
+3.Player3
+...
+
+
+The following plots take a closer at their performances. The box plots show the median
+the 1st and 3rd quartile of the runs
+
+##12. Box Histogram Plot
+This plot shows a combined boxplot of the Runs ranges  and a histogram of the Runs Frequency
+```{python dakl-boxhist,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanPerfBoxHist("aplayer001.csv","A Player001")
+#ca.batsmanPerfBoxHist("aplayer002.csv","A Player002")
+#ca.batsmanPerfBoxHist("aplayer003.csv","A Player003")
+#ca.batsmanPerfBoxHist("aplayer004.csv","A Player004")
+
+```
+
+##13. get Player Data special
+
+```{python}
+import cricpy.analytics as ca
+
+#player1sp = ca.getPlayerDataSp(profile1,tdir=".",tfile="player1sp.csv",ttype="batting")
+#player2sp = ca.getPlayerDataSp(profile2,tdir=".",tfile="player2sp.csv",ttype="batting")
+#player3sp = ca.getPlayerDataSp(profile3,tdir=".",tfile="player3sp.csv",ttype="batting")
+#player4sp = ca.getPlayerDataSp(profile4,tdir=".",tfile="player4sp.csv",ttype="batting")
+```
+
+##14. Contribution to won and lost matches
+*Note*:This can only be used for Test matches
+```{python ralk-wonlost,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanContributionWonLost("player1sp.csv","A Player001")
+#ca.batsmanContributionWonLost("player2sp.csv","A Player002")
+#ca.batsmanContributionWonLost("player3sp.csv","A Player003")
+#ca.batsmanContributionWonLost("player4sp.csv","A Player004")
+
+```
+
+##15. Performance at home and overseas
+*Note*:This can only be used for Test matches
+This function also requires the use of getPlayerDataSp() as shown above
+```{python ralk-homeaway,cache=TRUE}
+import cricpy.analytics as ca
+#ca.batsmanPerfHomeAway("player1sp.csv","A Player001")
+#ca.batsmanPerfHomeAway("player2sp.csv","A Player002")
+#ca.batsmanPerfHomeAway("player3sp.csv","A Player003")
+#ca.batsmanPerfHomeAway("player4sp.csv","A Player004")
+
+```
+
+##16 Moving Average of runs in career
+
+```{python rakl-ma,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanMovingAverage("aplayer001.csv","A Player001")
+#ca.batsmanMovingAverage("aplayer002.csv","A Player002")
+#ca.batsmanMovingAverage("aplayer003.csv","A Player003")
+#ca.batsmanMovingAverage("aplayer004.csv","A Player004")
+
+```
+
+##17 Cumulative Average runs of batsman in career
+This function provides the cumulative average runs of the batsman over the career. 
+```{python rakl-car,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanCumulativeAverageRuns("aplayer001.csv","A Player001")
+#ca.batsmanCumulativeAverageRuns("aplayer002.csv","A Player002")
+#ca.batsmanCumulativeAverageRuns("aplayer003.csv","A Player003")
+#ca.batsmanCumulativeAverageRuns("aplayer004.csv","A Player004")
+
+```
+
+##18 Cumulative Average strike rate  of batsman in career
+.
+```{python rakl-casr,,cache=TRUE}
+import cricpy.analytics as ca
+#ca.batsmanCumulativeStrikeRate("aplayer001.csv","A Player001")
+#ca.batsmanCumulativeStrikeRate("aplayer002.csv","A Player002")
+#ca.batsmanCumulativeStrikeRate("aplayer003.csv","A Player003")
+#ca.batsmanCumulativeStrikeRate("aplayer004.csv","A Player004")
+```
+
+##19 Future Runs forecast 
+```{python perffcst,cache-TRUE}
+import cricpy.analytics as ca
+
+#ca.batsmanPerfForecast("aplayer001.csv","A Player001")
+```
+
+##20 Relative Batsman Cumulative Average Runs
+The plot below compares the Relative cumulative average runs of the batsman for each of the runs ranges of 10 and plots them. 
+
+```{python rakl-relSR,cache=TRUE}
+import cricpy.analytics as ca
+
+frames = ["aplayer1.csv","aplayer2.csv","aplayer3.csv","aplayer4.csv"]
+names = ["A Player1","A Player2","A Player3","A Player4"]
+#ca.relativeBatsmanCumulativeAvgRuns(frames,names)
+
+```
+
+##21 Plot of 4s and 6s
+```{python kjgs-4s6s, cache=TRUE}
+import cricpy.analytics as ca
+
+frames = ["aplayer1.csv","aplayer2.csv","aplayer3.csv","aplayer4.csv"]
+names = ["A Player1","A Player2","A Player3","A Player4"]
+#ca.batsman4s6s(frames,names)
+
+```
+
+##22. Relative Batsman Strike Rate
+The plot below gives the relative Runs Frequency Percetages for each 10 run bucket. The plot below show
+
+
+```{python rakl-relRunFreq,cache=TRUE}
+import cricpy.analytics as ca
+
+frames = ["aplayer1.csv","aplayer2.csv","aplayer3.csv","aplayer4.csv"]
+names = ["A Player1","A Player2","A Player3","A Player4"]
+#ca.relativeBatsmanCumulativeStrikeRate(frames,names)
+
+
+
+```
+
+
+##23. 3D plot of Runs vs Balls Faced and Minutes at Crease
+The plot is a scatter plot of Runs vs Balls faced and Minutes at Crease. A prediction plane is fitted
+
+```{python plot-3,cache=TRUE}
+import cricpy.analytics as ca
+#ca.battingPerf3d("aplayer001.csv","A Player001")
+#ca.battingPerf3d("aplayer002.csv","A Player002")
+#ca.battingPerf3d("aplayer003.csv","A Player003")
+#ca.battingPerf3d("aplayer004.csv","A Player004")
+```
+
+
+
+##24. Predicting Runs given Balls Faced and Minutes at Crease
+A multi-variate regression plane is fitted between Runs and Balls faced +Minutes at crease.
+```{python messages=FALSE,cache=TRUE}
+import cricpy.analytics as ca
+
+import numpy as np
+import pandas as pd
+
+BF = np.linspace( 10, 400,15)
+Mins = np.linspace( 30,600,15)
+newDF= pd.DataFrame({'BF':BF,'Mins':Mins})
+
+#aplayer = ca.batsmanRunsPredict("aplayer.csv",newDF,"A Player")
+#print(aplayer)
+
+```
+
+The fitted model is then used to predict the runs that the batsmen will score for a given Balls faced and Minutes at crease. 
+
+##25 Analysis of Top 3 wicket takers
+Take any number of bowlers from either Test, ODI or T20
+
+1. Bowler1
+2. Bowler2
+3. Bowler3
+...
+
+
+##26. Get the bowler's data (Test)
+This plot below computes the percentage frequency of number of wickets taken for e.g
+1 wicket x%, 2 wickets y% etc and plots them as a continuous line 
+
+```{python}
+import cricpy.analytics as ca
+
+#abowler1 =ca.getPlayerData(profileNo1,dir=".",file="abowler1.csv",type="bowling",homeOrAway=[1,2], result=[1,2,4])
+#abowler2 =ca.getPlayerData(profileNo2,dir=".",file="abowler2.csv",type="bowling",homeOrAway=[1,2], result=[1,2,4])
+#abowler3 =ca.getPlayerData(profile3,dir=".",file="abowler3.csv",type="bowling",homeOrAway=[1,2], result=[1,2,4])
+```
+
+
+##26b For ODI bowlers
+```{python}
+import cricpy.analytics as ca
+
+#abowler1 =ca.getPlayerDataOD(profileNo1,dir=".",file="abowler1.csv",type="bowling")
+#abowler2 =ca.getPlayerDataOD(profileNo2,dir=".",file="abowler2.csv",type="bowling")
+#abowler3 =ca.getPlayerDataOD(profile3,dir=".",file="abowler3.csv",type="bowling")
+```
+
+## 26c For T20 bowlers
+```{python}
+import cricpy.analytics as ca
+
+#abowler1 =ca.getPlayerDataTT(profileNo1,dir=".",file="abowler1.csv",type="bowling")
+#abowler2 =ca.getPlayerDataTT(profileNo2,dir=".",file="abowler2.csv",type="bowling")
+#abowler3 =ca.getPlayerDataTT(profile3,dir=".",file="abowler3.csv",type="bowling")
+```
+
+##27. Wicket Frequency Plot
+This plot below plots the frequency of wickets taken for each of the bowlers
+
+```{python relBowlFP,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerWktsFreqPercent("abowler1.csv","A Bowler1")
+#ca.bowlerWktsFreqPercent("abowler2.csv","A Bowler2")
+#ca.bowlerWktsFreqPercent("abowler3.csv","A Bowler3")
+
+```
+
+##28. Wickets Runs plot
+The plot below create a box plot showing the 1st and 3rd quartile of runs conceded versus the number of wickets taken
+
+```{python wktsrun,cache =TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerWktsRunsPlot("abowler1.csv","A Bowler1")
+#ca.bowlerWktsRunsPlot("abowler2.csv","A Bowler2")
+#ca.bowlerWktsRunsPlot("abowler3.csv","A Bowler3")
+
+```
+
+##29 Average wickets at different venues
+The plot gives the average wickets taken bat different venues. 
+
+```{python avgWktshrg,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerAvgWktsGround("abowler1.csv","A Bowler1")
+#ca.bowlerAvgWktsGround("abowler2.csv","A Bowler2")
+#ca.bowlerAvgWktsGround("abowler3.csv","A Bowler3")
+
+
+```
+
+##30 Average wickets against different opposition
+The plot gives the average wickets taken against different countries.
+
+```{python avgWktoppn,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerAvgWktsOpposition("abowler1.csv","A Bowler1")
+#ca.bowlerAvgWktsOpposition("abowler2.csv","A Bowler2")
+#ca.bowlerAvgWktsOpposition("abowler3.csv","A Bowler3")
+
+```
+
+
+##31 Wickets taken moving average
+
+```{python mka-bowlma,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerMovingAverage("abowler1.csv","A Bowler1")
+#ca.bowlerMovingAverage("abowler2.csv","A Bowler2")
+#ca.bowlerMovingAverage("abowler3.csv","A Bowler3")
+
+```
+
+##32 Cumulative average wickets taken
+The plots below give the cumulative average wickets taken by the bowlers.
+```{python mka-bowlcaw,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerCumulativeAvgWickets("abowler1.csv","A Bowler1")
+#ca.bowlerCumulativeAvgWickets("abowler2.csv","A Bowler2")
+#ca.bowlerCumulativeAvgWickets("abowler3.csv","A Bowler3")
+
+```
+
+##33 Cumulative average economy rate
+The plots below give the cumulative average economy rate of the bowlers. 
+```{python mka-bowler,,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerCumulativeAvgEconRate("abowler1.csv","A Bowler1")
+#ca.bowlerCumulativeAvgEconRate("abowler2.csv","A Bowler2")
+#ca.bowlerCumulativeAvgEconRate("abowler3.csv","A Bowler3")
+
+```
+
+##34 Future Wickets forecast 
+
+```{python mka-perffcst,,cache=TRUE}
+import cricpy.analytics as ca
+#ca.bowlerPerfForecast("abowler1.csv","A bowler1")
+```
+
+##35 Get player data special
+
+
+```{python}
+import cricpy.analytics as ca
+
+#abowler1sp =ca.getPlayerDataSp(profile1,tdir=".",tfile="abowler1sp.csv",ttype="bowling")
+#abowler2sp =ca.getPlayerDataSp(profile2,tdir=".",tfile="abowler2sp.csv",ttype="bowling")
+#abowler3sp =ca.getPlayerDataSp(profile3,tdir=".",tfile="abowler3sp.csv",ttype="bowling")
+```
+
+
+
+##36 Contribution to matches won and lost
+*Note*:This can be done only for Test cricketers
+
+
+```{python mka-wl,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerContributionWonLost("abowler1sp.csv","A Bowler1")
+#ca.bowlerContributionWonLost("abowler2sp.csv","A Bowler2")
+#ca.bowlerContributionWonLost("abowler3sp.csv","A Bowler3")
+
+
+```
+
+##37 Performance home and overseas
+*Note*:This can be done only for Test cricketers
+
+```{python mka-ha,cache=TRUE}
+import cricpy.analytics as ca
+
+#ca.bowlerPerfHomeAway("abowler1sp.csv","A Bowler1")
+#ca.bowlerPerfHomeAway("abowler2sp.csv","A Bowler2")
+#ca.bowlerPerfHomeAway("abowler3sp.csv","A Bowler3")
+
+```
+
+##38 Relative cumulative average economy rate of bowlers
+
+```{python relBowlPerf,cache=TRUE}
+import cricpy.analytics as ca
+
+frames = ["abowler1.csv","abowler2.csv","abowler3.csv"]
+names = ["A Bowler1","A Bowler2","A Bowler3"]
+#ca.relativeBowlerCumulativeAvgEconRate(frames,names)
+```
+
+##39 Relative Economy Rate against wickets taken
+
+```{python relBowlER,cache=TRUE}
+import cricpy.analytics as ca
+
+frames = ["abowler1.csv","abowler2.csv","abowler3.csv"]
+names = ["A Bowler1","A Bowler2","A Bowler3"]
+#ca.relativeBowlingER(frames,names)
+
+```
+
+##40 Relative cumulative average wickets of bowlers in career
+
+```{python rbcaw,cache=TRUE}
+import cricpy.analytics as ca
+frames = ["abowler1.csv","abowler2.csv","abowler3.csv"]
+names = ["A Bowler1","A Bowler2","A Bowler3"]
+#ca.relativeBowlerCumulativeAvgWickets(frames,names)
+
+```
+
+
+# Key Findings
+
+
+## Analysis of Top 4 batsman
+
+
+## Analysis of Top 3 bowlers
