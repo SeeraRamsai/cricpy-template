@@ -531,112 +531,124 @@ names = ["A Bowler1","A Bowler2","A Bowler3"]
 The following functions will get the team data for Tests, ODI and T20s
 
 ###1a. Get Test team data
-```{r}
+```{python}
+import cricpy.analytics as ca
 #country1Test= ca.getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country1Test.csv",save=True,teamName="Country1")
 #country2Test= ca.getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country2Test.csv",save=True,teamName="Country2")
 #country3Test= ca.getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country3Test.csv",save=True,teamName="Country3")
 ```
 
 ###1b. Get ODI team  data
-```{r}
+```{python}
+import cricpy.analytics as ca
 #team1ODI=  ca.getTeamDataHomeAway(dir=".",matchType="ODI",file="team1ODI.csv",save=True,teamName="team1")
 #team2ODI=  ca.getTeamDataHomeAway(dir=".",matchType="ODI",file="team2ODI.csv",save=True,teamName="team2")
 #team3ODI=  ca.getTeamDataHomeAway(dir=".",matchType="ODI",file="team3ODI.csv",save=True,teamName="team3")
 ```
 
 ###1c. Get T20 team  data
-```{r}
-#team1T20 = getTeamDataHomeAway(matchType="T20",file="team1T20.csv",save=True,teamName="team1")
-#team2T20 = getTeamDataHomeAway(matchType="T20",file="team2T20.csv",save=True,teamName="team2")
-#team3T20 = getTeamDataHomeAway(matchType="T20",file="team3T20.csv",save=True,teamName="team3")
+```{python}
+import cricpy.analytics as ca
+#team1T20 = ca.getTeamDataHomeAway(matchType="T20",file="team1T20.csv",save=True,teamName="team1")
+#team2T20 = ca.getTeamDataHomeAway(matchType="T20",file="team2T20.csv",save=True,teamName="team2")
+#team3T20 = ca.getTeamDataHomeAway(matchType="T20",file="team3T20.csv",save=True,teamName="team3")
 ```
 
 ###2a. Test - Analyzing test performances against opposition
-```{r}
+```{python}
+import cricpy.analytics as ca
 # Get the performance of Indian test team against all teams at all venues as a dataframe
-#df = teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
+#df = ca.teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
 #print(df.head())
 # Plot the performance of Country1 Test team  against all teams at all venues
-#teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+#ca.teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
 # Plot the performance of Country1 Test team  against specific teams at home/away venues
-#teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["Country2","Country3","Country4"],homeOrAway=["home","away","neutral"],matchType="Test",plot=True)
+#ca.teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["Country2","Country3","Country4"],homeOrAway=["home","away","neutral"],matchType="Test",plot=True)
 ```
 
 
 ###2b. Test - Analyzing test performances against opposition at different grounds
-```{r}
+```{python}
+import cricpy.analytics as ca
 # Get the performance of Indian test team against all teams at all venues as a dataframe
-#df = teamWinLossStatusAtGrounds("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
+#df = ca.teamWinLossStatusAtGrounds("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
 #df.head()
 # Plot the performance of Country1 Test team  against all teams at all venues
-#teamWinLossStatusAtGrounds("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
+#ca.teamWinLossStatusAtGrounds("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
 # Plot the performance of Country1 Test team  against specific teams at home/away venues
-#teamWinLossStatusAtGrounds("country1Test.csv",teamName="Country1",opposition=["Country2","Country3","Country4"],homeOrAway=["home","away","neutral"],matchType="Test",plot=True)
+#ca.teamWinLossStatusAtGrounds("country1Test.csv",teamName="Country1",opposition=["Country2","Country3","Country4"],homeOrAway=["home","away","neutral"],matchType="Test",plot=True)
 ```
 
 ###2c. Test - Plot time lines of wins and losses
-```{r}
-#plotTimelineofWinsLosses("country1Test.csv",team="Country1",opposition=["all"], #startDate="1970-01-01",endDate="2017-01-01")
-#plotTimelineofWinsLosses("country1Test.csv",team="Country1",opposition=["Country2","Count#ry3","Country4"], homeOrAway=["home",away","neutral"], startDate=<start Date> #,endDate=<endDate>)
+```{python}
+import cricpy.analytics as ca
+#ca.plotTimelineofWinsLosses("country1Test.csv",team="Country1",opposition=["all"], #startDate="1970-01-01",endDate="2017-01-01")
+#ca.plotTimelineofWinsLosses("country1Test.csv",team="Country1",opposition=["Country2","Count#ry3","Country4"], homeOrAway=["home",away","neutral"], startDate=<start Date> #,endDate=<endDate>)
 ```
 
 ###3a. ODI - Analyzing test performances against opposition
-```{r}
-#df = teamWinLossStatusVsOpposition("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="ODI",plot=False)
+```{python}
+import cricpy.analytics as ca
+#df = ca.teamWinLossStatusVsOpposition("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="ODI",plot=False)
 #print(df.head())
 # Plot the performance of team1  in ODIs against Sri Lanka, India at all venues
-#teamWinLossStatusVsOpposition("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=[all"],matchType="ODI",plot=True)
+#ca.teamWinLossStatusVsOpposition("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=[all"],matchType="ODI",plot=True)
 # Plot the performance of Team1 ODI team  against specific teams at home/away venues
-#teamWinLossStatusVsOpposition("team1ODI.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway="home","away","neutral"],matchType="ODI",plot=True)
+#ca.teamWinLossStatusVsOpposition("team1ODI.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway="home","away","neutral"],matchType="ODI",plot=True)
 ```
 
 ###3b. ODI - Analyzing test performances against opposition at different venues
-```{r}
-#df = teamWinLossStatusAtGrounds("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="ODI",plot=False)
+```{python}
+import cricpy.analytics as ca
+#df = ca.teamWinLossStatusAtGrounds("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="ODI",plot=False)
 #print(df.head())
 # Plot the performance of Team1s in ODIs specific ODI teams at all venues
-#teamWinLossStatusAtGrounds("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=[all"],matchType="ODI",plot=True)
+#ca.teamWinLossStatusAtGrounds("team1ODI.csv",teamName="Team1",opposition=["all"],homeOrAway=[all"],matchType="ODI",plot=True)
 # Plot the performance of Team1 against specific ODI teams at home/away venues
-#teamWinLossStatusAtGrounds("team1ODI.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway=["home","away","neutral"],matchType="ODI",plot=True)
+#ca.teamWinLossStatusAtGrounds("team1ODI.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway=["home","away","neutral"],matchType="ODI",plot=True)
 ```
 
 
 ###3c. ODI - Plot time lines of wins and losses
-```{r}
+```{python}
+import cricpy.analytics as ca
 #Plot the time line of wins/losses of Bangladesh ODI team between 2 dates all venues
-#plotTimelineofWinsLosses("team1ODI.csv",team="Team1",startDate=<start date> ,endDa#te=<end date>,matchType="ODI")
+#ca.plotTimelineofWinsLosses("team1ODI.csv",team="Team1",startDate=<start date> ,endDa#te=<end date>,matchType="ODI")
 #Plot the time line of wins/losses against specific opposition between 2 dates
-#plotTimelineofWinsLosses("team1ODI.csv",team="Team1",opposition=["Team2","Team2"], homeOrAway=["home",away","neutral"], startDate=<start date>,endDate=<end date> ,matchType="ODI")
+#ca.plotTimelineofWinsLosses("team1ODI.csv",team="Team1",opposition=["Team2","Team2"], homeOrAway=["home",away","neutral"], startDate=<start date>,endDate=<end date> ,matchType="ODI")
 ```
 
 
 ###4a. T20 - Analyzing test performances against opposition
-```{r}
-#df = teamWinLossStatusVsOpposition("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=False)
+```{python}
+import cricpy.analytics as ca
+#df = ca.teamWinLossStatusVsOpposition("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=False)
 #print(df.head())
 # Plot the performance of Team1 in T20s  against  all opposition at all venues
-#teamWinLossStatusVsOpposition("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=[all"],matchType="T20",plot=True)
+#ca.teamWinLossStatusVsOpposition("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=[all"],matchType="T20",plot=True)
 # Plot the performance of T20 Test team  against specific teams at home/away venues
-#teamWinLossStatusVsOpposition("teamT20.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway=["home","away","neutral"],matchType="T20",plot=True)
+#ca.teamWinLossStatusVsOpposition("teamT20.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway=["home","away","neutral"],matchType="T20",plot=True)
 ```
 
 ###4b. T20 - Analyzing test performances against opposition at different venues
-```{r}
-#df = teamWinLossStatusAtGrounds("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=False)
+```{python}
+import cricpy.analytics as ca
+#df = ca.teamWinLossStatusAtGrounds("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=False)
 #df.head()
 # Plot the performance of Team1s in ODIs specific ODI teams at all venues
-#teamWinLossStatusAtGrounds("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
+#ca.teamWinLossStatusAtGrounds("teamT20.csv",teamName="Team1",opposition=["all"],homeOrAway=["all"],matchType="T20",plot=True)
 # Plot the performance of Team1 against specific ODI teams at home/away venues
-#teamWinLossStatusAtGrounds("teamT20.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway=["home","away","neutral"],matchType="T20",plot=True)
+#ca.teamWinLossStatusAtGrounds("teamT20.csv",teamName="Team1",opposition=["Team2","Team3","Team4"],homeOrAway=["home","away","neutral"],matchType="T20",plot=True)
 ```
 
 
 ###4c. T20 - Plot time lines of wins and losses
-```{r}
+```{python}
+import cricpy.analytics as ca
 #Plot the time line of wins/losses of Bangladesh ODI team between 2 dates all venues
-#plotTimelineofWinsLosses("teamT20.csv",team="Team1",startDate=<start date> ,endDa#te=<end date>,matchType="T20")
+#ca.plotTimelineofWinsLosses("teamT20.csv",team="Team1",startDate=<start date> ,endDa#te=<end date>,matchType="T20")
 #Plot the time line of wins/losses against specific opposition between 2 dates
-#plotTimelineofWinsLosses("teamT20.csv",team="Team1",opposition=c("Team2","Team2"), homeOrAway=c("home",away","neutral"), startDate=<start date>,endDate=<end date> ,matchType="T20")
+#ca.plotTimelineofWinsLosses("teamT20.csv",team="Team1",opposition=c("Team2","Team2"), homeOrAway=c("home",away","neutral"), startDate=<start date>,endDate=<end date> ,matchType="T20")
 ```
 
 ## Conclusion
