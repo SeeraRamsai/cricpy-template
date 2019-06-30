@@ -1,7 +1,7 @@
 ---
 title: "Analyzing cricket players and cricket teams with cricpy template"
 author: "Tinniam V Ganesh"
-date: "Dec 16, 2018"
+date: "Jun 30, 2019"
 output:
   html_document: default
   pdf_document: default
@@ -52,6 +52,7 @@ import cricpy.analytics as ca
 
 #3. Getting help from cricpy - Python
 ```{python}
+import cricpy.analytics as ca
 #help(ca.getPlayerData)
 ```
 
@@ -531,16 +532,16 @@ The following functions will get the team data for Tests, ODI and T20s
 
 ###1a. Get Test team data
 ```{r}
-#country1Test= getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country1Test.csv",save=True,teamName="Country1")
-#country2Test= getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country2Test.csv",save=True,teamName="Country2")
-#country3Test= getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country3Test.csv",save=True,teamName="Country3")
+#country1Test= ca.getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country1Test.csv",save=True,teamName="Country1")
+#country2Test= ca.getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country2Test.csv",save=True,teamName="Country2")
+#country3Test= ca.getTeamDataHomeAway(dir=".",teamView="bat",matchType="Test",file="country3Test.csv",save=True,teamName="Country3")
 ```
 
 ###1b. Get ODI team  data
 ```{r}
-#team1ODI=  getTeamDataHomeAway(dir=".",matchType="ODI",file="team1ODI.csv",save=True,teamName="team1")
-#team2ODI=  getTeamDataHomeAway(dir=".",matchType="ODI",file="team2ODI.csv",save=True,teamName="team2")
-#team3ODI=  getTeamDataHomeAway(dir=".",matchType="ODI",file="team3ODI.csv",save=True,teamName="team3")
+#team1ODI=  ca.getTeamDataHomeAway(dir=".",matchType="ODI",file="team1ODI.csv",save=True,teamName="team1")
+#team2ODI=  ca.getTeamDataHomeAway(dir=".",matchType="ODI",file="team2ODI.csv",save=True,teamName="team2")
+#team3ODI=  ca.getTeamDataHomeAway(dir=".",matchType="ODI",file="team3ODI.csv",save=True,teamName="team3")
 ```
 
 ###1c. Get T20 team  data
@@ -554,7 +555,7 @@ The following functions will get the team data for Tests, ODI and T20s
 ```{r}
 # Get the performance of Indian test team against all teams at all venues as a dataframe
 #df = teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=False)
-print(df.head())
+#print(df.head())
 # Plot the performance of Country1 Test team  against all teams at all venues
 #teamWinLossStatusVsOpposition("country1Test.csv",teamName="Country1",opposition=["all"],homeOrAway=["all"],matchType="Test",plot=True)
 # Plot the performance of Country1 Test team  against specific teams at home/away venues
@@ -650,5 +651,7 @@ print(df.head())
 
 
 ## Analysis of teams
+
+Have fun with cripy!!!
 
 
