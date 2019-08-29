@@ -651,6 +651,81 @@ import cricpy.analytics as ca
 #ca.plotTimelineofWinsLosses("teamT20.csv",team="Team1",opposition=c("Team2","Team2"), homeOrAway=c("home",away","neutral"), startDate=<start date>,endDate=<end date> ,matchType="T20")
 ```
 
+
+
+###5. Performing granular analysis of batsmen and bowlers
+To perform granular analysis of batsmen and bowlers do the following 2 steps
+
+1. Step 1: getPlayerDataHA - This function is a wrapper around getPlayerData(), getPlayerDataOD() and getPlayerDataTT(), and adds an extra column 'homeOrAway' which says whether the match was played at home/away/neutral venues. A CSV file is created with this new column.
+2. Step2:getPlayerDataOppnHA - This function allows you to slice & dice the data for batsmen and bowlers against specific oppositions, at home/away/neutral venues and between certain periods. This reduced subset of data can be used to perform analyses. A CSV file is created as an output based on the parameters of opposition, home or away and the interval of time
+
+See [Cricpy performs granular analysis of players](https://gigadom.in/2019/08/29/cricpy-performs-granular-analysis-of-players/)
+
+
+###37. GetPlayerDataHA (Batsmen, Tests)
+```{r}
+#This saves a file playerTestHA.csv
+#df=getPlayerDataHA(<profileNo>,tfile="playerTestHA.csv",type="batting", matchType="Test")
+
+#Use the generate file to create a subset of data
+#df1=getPlayerDataOppnHA(infile="playerTestHA.csv",outfile="playerTestFile1.csv",opposition=[list of opposition],
+# homeOrAway=[home/away/neutral],  startDate=<start Date>,endDate=<end Date>)
+```
+
+###38. GetPlayerDataHA (Bowlers, Tests)
+```{r}
+#This saves a file playerTestHA.csv
+#df=getPlayerDataHA(<profileNo>,tfile="playerTestHA.csv",type="bowling", matchType="Test")
+
+#Use the generate file to create a subset of data
+#df1=getPlayerDataOppnHA(infile="playerTestHA.csv",outfile="playerTestFile1.csv",opposition=[list of opposition],
+# homeOrAway=[home/away/neutral],  startDate=<start Date>,endDate=<end Date>)
+```
+
+
+###39. GetPlayerDataHA (Batsmen, ODI)
+
+```{r}
+#This saves a file playerTestHA.csv
+#df=getPlayerDataHA(<profileNo>,tfile="playerODIHA.csv",type="batting", matchType="ODI")
+
+#Use the generate file to create a subset of data
+#df1=getPlayerDataOppnHA(infile="playerODIHA.csv",outfile="playerODIFile1.csv",opposition=[list of opposition],
+# homeOrAway=[home/away/neutral],  startDate=<start Date>,endDate=<end Date>)
+```
+
+###40. GetPlayerDataHA (Bowlers, ODI)
+```{r}
+#This saves a file playerTestHA.csv
+#df=getPlayerDataHA(<profileNo>,tfile="playerODIHA.csv",type="bowling", matchType="ODI")
+
+#Use the generate file to create a subset of data
+#df1=getPlayerDataOppnHA(infile="playerODIHA.csv",outfile="playerODIFile1.csv",opposition=[list of opposition],
+# homeOrAway=[home/away/neutral],  startDate=<start Date>,endDate=<end Date>)
+```
+
+###41. GetPlayerDataHA (Batsmen, T20)
+
+```{r}
+#This saves a file playerTestHA.csv
+#df=getPlayerDataHA(<profileNo>,tfile="playerT20HA.csv",type="batting", matchType="T20")
+
+#Use the generate file to create a subset of data
+#df1=getPlayerDataOppnHA(infile="playerT20HA.csv",outfile="playerT20File1.csv",opposition=[list of opposition],
+# homeOrAway=[home/away/neutral],  startDate=<start Date>,endDate=<end Date>)
+#                         startDate=<start Date>,endDate=<end Date>)
+```
+
+###42. GetPlayerDataHA (Bowlers, T20)
+```{r}
+#This saves a file playerTestHA.csv
+#df=getPlayerDataHA(<profileNo>,tfile="playerT20HA.csv",type="bowling", matchType="T20")
+
+#Use the generate file to create a subset of data
+#df1=getPlayerDataOppnHA(infile="playerT20HA.csv",outfile="playerT20File1.csv",opposition=[list of opposition],
+# homeOrAway=[home/away/neutral],  startDate=<start Date>,endDate=<end Date>)
+```
+
 ## Conclusion
 
 # Key Findings
